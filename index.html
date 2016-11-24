@@ -19,14 +19,21 @@
 
   	<p> {{ person.name }} is from {{ person.city }}  </p>
 
+	<!-- automatically sets $scope.query with this value -->
+  	<input ng-model="query">
+
+  	<button ng-click="searchArtist()">Search</button>
+
   	<table class="artist-table">
   		<tr>
   			<th>Artist</th>
-  			<th>Style</th>
+  			<th>Popularity</th>
+  			<th>Image</th>
   		</tr>
   		<tr ng-repeat="artist in artists">
   			<td>{{ artist.name }}</td>
-  			<td>{{ artist.style }}</td>
+  			<td>{{ artist.popularity }}</td>
+  			<td> <img width="100" ng-src="{{ artist.image }}"> </td>
   		</tr>
   	</table>
 

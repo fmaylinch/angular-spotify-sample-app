@@ -1,7 +1,10 @@
 var spotifyApp =
   angular.module('spotifyApp', []);
 
-spotifyApp.controller('SpotifyController', function($scope) {
+// $http is an agular service (already included)
+// $scope and $http are automatically injected by Angular
+// For more information, look for: Dependency injection
+spotifyApp.controller('SpotifyController', function($scope, $http) {
 
 	$scope.person = {
 		name: "Ferran",
@@ -15,9 +18,42 @@ spotifyApp.controller('SpotifyController', function($scope) {
 		$scope.message = "Message changed!";
 	};
 
-	$scope.artists = [
-		{ name:"Radiohead", style:"Rock" },
-		{ name:"Enigma", style:"New age" },
-		{ name:"Coldplay", style:"Pop rock" }
-	];
+	var spotifyAPI = "https://api.spotify.com/v1/";
+
+	$scope.searchArtist = function() {
+
+		var query = $scope.query;
+
+		var url = spotifyAPI + "search?q=" + query + "&type=artist";
+
+		// This is similar to jQuery ajax
+		$http({
+		  method: 'GET',
+		  url: url
+		}).then(function(response) {
+		    // ok
+		    var artists = response.data.artists.items;
+		    fillArtistsImage(artists);
+		    $scope.artists = artists;
+
+		}, function(response) {
+		    // error
+		    console.error(response);
+		});
+	};
 });
+
+
+// Auxiliary functions
+
+function fillArtistsImage(artists) {
+
+	// set artist.image, fill empty images with placeholder
+	artists.forEach(function (artist) {
+		if (artist.images.length > 0) {
+			artist.image = artist.images[0].url;
+		} else {
+			artist.image = "http://www.aspirehire.co.uk/aspirehire-co-uk/_img/profile.svg";
+		}
+	});	
+}
