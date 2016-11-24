@@ -3,18 +3,21 @@ var spotifyApp =
 
 spotifyApp.controller('SpotifyController', function($scope) {
 
-	var person = {
+	$scope.person = {
 		name: "Ferran",
-		age: 39
+		city: "Barcelona"
 	};
 
-	person.city = "Barcelona";
-
 	$scope.message = "Message from JavaScript file";
-	$scope.person = person;
 
 	$scope.changeMessage = function() {
 		// will be executed when the button is clicked
 		$scope.message = "Message changed!";
 	};
+
+	$scope.artists = [
+		{ name:"Radiohead", style:"Rock" },
+		{ name:"Enigma", style:"New age" },
+		{ name:"Coldplay", style:"Pop rock" }
+	];
 });
