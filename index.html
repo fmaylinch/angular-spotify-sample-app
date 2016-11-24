@@ -1,18 +1,23 @@
 
 <!-- 
-     ng-app is an attribute
-     angular call them directives
+     ng-app is an attribute, angular calls them "directives"
+     (ng-app, ng-click, ng-repeat, ng-src, etc. are all directives )
 -->
 <html ng-app="spotifyApp">
+
   <head>
+    <title>Spotify app with AngularJS</title>
     <link rel="stylesheet" href="style.css">
     <script src="angular.js"></script>
     <script src="app.js"></script>
   </head>
+
+  <!-- This part will be controlled by the SpotifyController -->
   <body ng-controller="SpotifyController">
 
   	<h1>Spotify app with AngularJS</h1>
 
+	<!-- Will call $scope.changeMessage() when the button is clicked -->
   	<button ng-click="changeMessage()">Change message</button>
 
   	<p> {{ message }} </p>
@@ -30,9 +35,16 @@
   			<th>Popularity</th>
   			<th>Image</th>
   		</tr>
+  		<!-- Will repeat the <tr> for each artist in $scope.artists -->
   		<tr ng-repeat="artist in artists">
+  			<!-- Here we can use artist (it's each one of the artists) -->
   			<td>{{ artist.name }}</td>
   			<td>{{ artist.popularity }}</td>
+  			<!-- 
+  				ng-src avoids the browser error when the page loads
+  				(before angular starts to replace things) because
+  				"{{ artist.image }}"" is not a valid url, obviously...
+  			-->
   			<td> <img width="100" ng-src="{{ artist.image }}"> </td>
   		</tr>
   	</table>
