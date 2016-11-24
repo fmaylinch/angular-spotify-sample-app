@@ -12,4 +12,9 @@ spotifyApp.controller('SpotifyController', function($scope) {
 
 	$scope.message = "Message from JavaScript file";
 	$scope.person = person;
+
+	$scope.changeMessage = function() {
+		// will be executed when the button is clicked
+		$scope.message = "Message changed!";
+	};
 });
